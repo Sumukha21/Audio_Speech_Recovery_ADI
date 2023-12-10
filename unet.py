@@ -94,13 +94,4 @@ class Unet(torch.nn.Module):
         x = self.final_conv(x)
         return x
 
-"""
-ToDO:
-1. Add assert statements to verify length of encoder and decoder channel lists - Done
-2. Add assert statement to verify the values of encoder, decoder channel values - Done
-3. Verification of why TSConv works - Done
-4. Comments and docstrings in code - Done
-5. Testing
-6. Documentation
-"""
 
