@@ -147,8 +147,8 @@ class TSConv(torch.nn.Module):
             Returns the time shifted and convolved 4D tensor (bs, ch2, h, w).
         """
         x_dynamic = x[:, :x.shape[1] // 2, :, :]
-        x_dynamic_forward = torch.concat([torch.zeros(1, (x_dynamic.shape[1] // 2), x_dynamic.shape[2], 1), x_dynamic[:, :(x_dynamic.shape[1] // 2), :, :-1]], dim=-1)
-        x_dynamic_backward = torch.concat([x_dynamic[:, (x_dynamic.shape[1] // 2):, :, 1:], torch.zeros(1, (x_dynamic.shape[1] // 2), x_dynamic.shape[2], 1)], dim=-1)
+        x_dynamic_forward = torch.concat([torch.zeros(x.shape[0], (x_dynamic.shape[1] // 2), x_dynamic.shape[2], 1), x_dynamic[:, :(x_dynamic.shape[1] // 2), :, :-1]], dim=-1)
+        x_dynamic_backward = torch.concat([x_dynamic[:, (x_dynamic.shape[1] // 2):, :, 1:], torch.zeros(x.shape[0], (x_dynamic.shape[1] // 2), x_dynamic.shape[2], 1)], dim=-1)
         x = torch.concat([x_dynamic_forward, x_dynamic_backward, x[:, (x.shape[1] // 2):, :, :]], dim=1)
         x = self.conv_layer1(x)
         return x 
